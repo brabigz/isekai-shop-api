@@ -1,56 +1,84 @@
-Isekai Shop API
+# Isekai Shop API
 
-Introduction
+## Introduction
 
+Hi, my name is 
+Before this, I had published two online courses about Golang backend, covering both monolithic and microservices. However, both courses are in the Thai language.
 
-About Isekai Shop API
+This course will guide you through the implementation of a Simple REST API in clean architecture using **Golang + Echo + Gorm (PostgreSQL)**, starting from scratch and designed to be beginner-friendly, taking you from zero to hero.
+
+## About Isekai Shop API
+
 This course project is named “Isekai Shop API.” “Isekai” means another world (If you are an anime fan, you probably already know this world, lol), So this project is going to act like CRUD project + OAuth2.
 
-Features of Isekai Shop API
-Item Shop
-Listing
-Selling
-Buying
-Item Managing
-Creating
-Editing
-Archiving
-Inventory
-Listing
-Player Coin
-Coin Adding
-Showing
-OAuth2
-Player Login
-Admin Login
-Logout
-Middleware
-Player Authorize
-Admin Authorize
-Architecture
-alt text
+## Features of Isekai Shop API
 
-ER Diagram
-alt text
+- Item Shop
+  - Listing
+  - Selling
+  - Buying
+- Item Managing
+  - Creating
+  - Editing
+  - Archiving
+- Inventory
+  - Listing
+- Player Coin
+  - Coin Adding
+  - Showing
+- OAuth2
+  - Player Login
+  - Admin Login
+  - Logout
+  - Middleware
+      - Player Authorize
+      - Admin Authorize
 
-Start PostgreSQL on Docker
-Pull the PostgreSQL image
+## Architecture
+![alt text](./screenshots/IsekaiShopArchitectureV9.png "Architecture")
 
-docker pull postgres:alpine
-Start the PostgreSQL container
+## ER Diagram
+![alt text](./screenshots/IsekaiShopEntityV10.png "ER-Diagram")
 
-docker run --name isekaishopdb -p 5432:5432 -e POSTGRES_PASSWORD=123456 -d postgres:alpine
-Create the Isekai Shop Database
+## Start PostgreSQL on Docker
 
-docker exec -it isekaishopdb bash
-psql -U postgres
-CREATE DATABASE isekaishopdb;
-In case you need to delete the database
+1. Pull the PostgreSQL image
 
-DROP DATABASE isekaishopdb;
-Database Migration
+    ```bash
+    docker pull postgres:alpine
+    ```
+2. Start the PostgreSQL container
+
+    ```bash
+    docker run --name isekaishopdb -p 5432:5432 -e POSTGRES_PASSWORD=123456 -d postgres:alpine
+    ```
+3. Create the Isekai Shop Database
+
+    ```bash
+    docker exec -it isekaishopdb bash
+    ```
+
+    ```bash
+    psql -U postgres
+    ```
+    ```bash
+    CREATE DATABASE isekaishopdb;
+    ```
+4. In case you need to delete the database
+
+    ```bash
+    DROP DATABASE isekaishopdb;
+    ```
+
+## Database Migration
+
+```bash
 go run ./databases/migration/migratedb.go
-config.yaml Example
+```
+
+## config.yaml Example
+
+```bash
 server:
   port: 8080
   allowOrigins:
@@ -81,15 +109,27 @@ database:
   dbname: isekaishopdb
   sslmode: disable
   schema: public
-Start Isekai Shop API using Docker
+```
+
+## Start Isekai Shop API using Docker
+
 Let's see the IPv4 of our database container first by this follwing command.
 
+```bash
 docker network inspect bridge
+```
+
 Then copy the IPv4 of isekaishopdb to change the host of database in the config.yaml.
 
 And now let's build and start the isekai-shop-api through the Docker.
 
+```bash
 docker build -t isekai-shop-api:v1.0.0 .
+```
+
+```bash
 docker run --name isekai-shop-api -v /path/to/config-folder:/app/etc -d isekai-shop-api:v1.0.0
-Postman Collection and ENV
-Collection
+```
+
+## Postman Collection and ENV
+- [Collection](./postman/isekai-shop-api.postman_collection.json)
